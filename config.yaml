@@ -1,16 +1,13 @@
 ---
 
 common:
-  k8s_namespace: k8s-handle-test
 
-  app_name: example
+  app_name: nginx-ingress
+  app_namespace: ingress-nginx
 
   replicas_count: 1
 
   image_version: 0.23.0
-
-  nginx_worker_process: 1
-  nginx_worker_connections: 1024
 
   templates:
     - template: 000_namespace.yaml
