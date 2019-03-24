@@ -3,8 +3,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-ingress-controller
-  namespace: ingress-nginx
+  name: {{ app_name }}
+  namespace: {{ app_namespace }}
   labels:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
@@ -25,7 +25,7 @@ spec:
     spec:
       serviceAccountName: nginx-ingress-serviceaccount
       containers:
-        - name: nginx-ingress-controller
+        - name: {{ app_name }}-controller
           image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:{{ image_version }}
           args:
             - /nginx-ingress-controller
