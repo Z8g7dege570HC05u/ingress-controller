@@ -1,0 +1,25 @@
+---
+
+common:
+  k8s_namespace: k8s-handle-test
+
+  app_name: example
+
+  replicas_count: 1
+
+  image_version: 0.23.0
+
+  nginx_worker_process: 1
+  nginx_worker_connections: 1024
+
+  templates:
+    - template: 000_namespace.yaml
+    - template: 001_serviceAccount.yaml
+    - template: 010_clusterRole.yaml
+    - template: 011_role.yaml
+    - template: 012_roleBinding.yaml
+    - template: 013_clusterRoleBinging.yaml
+    - template: 020_configmapNginxConfiguration.yaml
+    - template: 021_configmapTCPServices.yaml
+    - template: 022_configmapUDPServices.yaml
+    - template: 030_deployment.yaml
