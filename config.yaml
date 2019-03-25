@@ -12,6 +12,7 @@ common:
   templates:
     - template: 000_namespace.yaml
     - template: 001_serviceAccount.yaml
+    - template: 002_service.yaml
     - template: 010_clusterRole.yaml
     - template: 011_role.yaml
     - template: 012_roleBinding.yaml
@@ -20,3 +21,9 @@ common:
     - template: 021_configmapTCPServices.yaml
     - template: 022_configmapUDPServices.yaml
     - template: 030_deployment.yaml
+
+public:
+  app_name: nginx-ingress-public
+
+secure:
+  app_name: nginx-ingress-secure

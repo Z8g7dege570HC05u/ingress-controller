@@ -1,13 +1,13 @@
 ---
 
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: {{ app_name }}-role
   namespace: {{ app_namespace }}
   labels:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/name: {{ app_name }}
+    app.kubernetes.io/part-of: {{ app_name }}
 rules:
   - apiGroups:
       - ""
@@ -23,11 +23,7 @@ rules:
     resources:
       - configmaps
     resourceNames:
-      # Defaults to "<election-id>-<ingress-class>"
-      # Here: "<ingress-controller-leader>-<nginx>"
-      # This has to be adapted if you change either parameter
-      # when launching the nginx-ingress-controller.
-      - "ingress-controller-leader-nginx"
+      - "ingress-controller-leader-{{ app_name }}"
     verbs:
       - get
       - update
