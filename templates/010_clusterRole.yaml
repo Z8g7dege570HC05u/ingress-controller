@@ -1,12 +1,12 @@
 ---
 
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ app_name }}-clusterrole
   labels:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/name: {{ app_name }}
+    app.kubernetes.io/part-of: {{ app_name }}
 rules:
   - apiGroups:
       - ""
