@@ -1,12 +1,10 @@
 ---
 
 common:
+  k8s_namespace: ingress-nginx
 
   app_name: nginx-ingress
-  app_namespace: ingress-nginx
-
   replicas_count: 1
-
   image_version: 0.23.0
 
   templates:
