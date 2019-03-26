@@ -11,18 +11,18 @@ common:
   network_policy_egress_cidr: ''
 
   templates:
-    - template: 000_namespace.yaml
-    - template: 001_serviceAccount.yaml
-    - template: 002_service.yaml
-    - template: 003_networkPolicy.yaml
-    - template: 010_clusterRole.yaml
-    - template: 011_role.yaml
-    - template: 012_roleBinding.yaml
-    - template: 013_clusterRoleBinging.yaml
-    - template: 020_configmapNginxConfiguration.yaml
-    - template: 021_configmapTCPServices.yaml
-    - template: 022_configmapUDPServices.yaml
-    - template: 030_deployment.yaml
+    - template: 000_namespace.yaml.j2
+    - template: 001_serviceAccount.yaml.j2
+    - template: 002_service.yaml.j2
+    - template: 003_networkPolicy.yaml.j2
+    - template: 010_clusterRole.yaml.j2
+    - template: 011_role.yaml.j2
+    - template: 012_roleBinding.yaml.j2
+    - template: 013_clusterRoleBinging.yaml.j2
+    - template: 020_configmapNginxConfiguration.yaml.j2
+    - template: 021_configmapTCPServices.yaml.j2
+    - template: 022_configmapUDPServices.yaml.j2
+    - template: 030_deployment.yaml.j2
 
 public:
   app_name: nginx-ingress-public
