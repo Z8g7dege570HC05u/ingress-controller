@@ -7,10 +7,14 @@ common:
   replicas_count: 1
   image_version: 0.23.0
 
+  network_policy_ingress_cidr: ''
+  network_policy_egress_cidr: ''
+
   templates:
     - template: 000_namespace.yaml
     - template: 001_serviceAccount.yaml
     - template: 002_service.yaml
+    - template: 003_networkPolicy.yaml
     - template: 010_clusterRole.yaml
     - template: 011_role.yaml
     - template: 012_roleBinding.yaml
@@ -22,6 +26,10 @@ common:
 
 public:
   app_name: nginx-ingress-public
+  network_policy_egress_cidr: "10.100.0.0/8" # Доступ только к определённому сегменту сети, от роутера
+                                             # Подобную настройку надо делать всем приложениям, которые работают через этот роутер
 
 secure:
   app_name: nginx-ingress-secure
+  network_policy_ingress_cidr: "10.0.0.0/8" # Доступ из всей внутренней подсети к роутеру
+  network_policy_egress_cidr: "10.0.0.0/8" # Мы можем приходить к любому во внутренней подсети, т.к. пришли на доверенный роутер
