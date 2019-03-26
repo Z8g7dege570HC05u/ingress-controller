@@ -14,4 +14,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: {{ app_name }}-serviceaccount
-    namespace: {{ app_namespace }}
+    namespace: {{ k8s_namespace }}
