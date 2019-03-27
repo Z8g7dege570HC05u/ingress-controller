@@ -37,5 +37,6 @@ $ k8s-handle deploy -s secure
 
 #### Дополнительные материалы
 
-В репозитории [example-apps](https://github.com/Z8g7dege570HC05u/example-apps) описаны простейшие сервисы для проверки
+* В репозитории [example-apps](https://github.com/Z8g7dege570HC05u/example-apps) описаны простейшие сервисы для проверки
 работы ingress controller и networkPolicy заданных в исходном config.yaml
+* В качестве контроллера для networkPolicy выступает [kube-router](https://github.com/Z8g7dege570HC05u/kube-router)
