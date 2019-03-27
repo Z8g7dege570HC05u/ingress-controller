@@ -4,11 +4,11 @@ common:
   k8s_namespace: ingress-nginx
 
   app_name: nginx-ingress
-  replicas_count: 1
+  replicas_count: 2
   image_version: 0.23.0
 
-  network_policy_ingress_cidr: ''
-  network_policy_egress_cidr: ''
+  network_policy_ingress: {}
+  network_policy_egress: {}
 
   templates:
     - template: 000_namespace.yaml.j2
@@ -25,11 +25,17 @@ common:
     - template: 030_deployment.yaml.j2
 
 public:
-  app_name: nginx-ingress-public
-  network_policy_egress_cidr: "10.100.0.0/8" # Доступ только к определённому сегменту сети, от роутера
-                                             # Подобную настройку надо делать всем приложениям, которые работают через этот роутер
+  app_name: external-ingress
+  network_policy_egress:
+    selectors:
+      - namespaceSelector: "name: public"
+        podSelector: "app: back1" # Через публичный ingress можно получить доступ только к определённому приложению
+      - namespaceSelector: "name: kube-system"
+        podSelector: "k8s-app: kube-dns" # Доступ к местному DNS серверу, для резолва доменов
 
 secure:
-  app_name: nginx-ingress-secure
-  network_policy_ingress_cidr: "10.0.0.0/8" # Доступ из всей внутренней подсети к роутеру
-  network_policy_egress_cidr: "10.0.0.0/8" # Мы можем приходить к любому во внутренней подсети, т.к. пришли на доверенный роутер
+  app_name: kube-ingress
+  network_policy_ingress:
+    cidrs: # Доступ к роутеру можно получить только с определённых сетей(произвольный выбор, просто для примера)
+      - 10.100.0.0/16
+      - 10.123.0.0/16

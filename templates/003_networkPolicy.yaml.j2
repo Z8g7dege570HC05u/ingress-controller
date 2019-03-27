@@ -13,18 +13,56 @@ spec:
     - Ingress
     - Egress
   ingress:
-  {% if network_policy_ingress_cidr -%}
+  {# Блок возможных правил для доступа к ingress-controller -#}
+  {% if network_policy_ingress -%}
+
+  {%- if network_policy_ingress.cidrs is defined -%}
+  {% for cidr in network_policy_ingress.cidrs -%}
     - from:
       - ipBlock:
-          cidr: {{ network_policy_ingress_cidr }}
-  {% else -%}
+          cidr: {{ cidr }}
+  {% endfor -%}
+  {% endif -%}
+
+  {%- if network_policy_ingress.selectors is defined -%}
+  {% for selector in network_policy_ingress.selectors -%}
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            {{ selector.namespaceSelector }}
+        podSelector:
+          matchLabels:
+            {{ selector.podSelector }}
+  {% endfor -%}
+  {% endif -%}
+
+  {%- else -%}
     - {} # allow all ingress traffic
   {% endif -%}
   egress:
-  {% if network_policy_egress_cidr -%}
+  {# Блок возможных правил для доступа с ingress-controller -#}
+  {% if network_policy_egress -%}
+
+  {%- if network_policy_egress.cidrs is defined -%}
+  {% for cidr in network_policy_egress.cidrs -%}
     - to:
       - ipBlock:
-          cidr: {{ network_policy_egress_cidr }}
-  {% else -%}
+          cidr: {{ cidr }}
+  {% endfor -%}
+  {% endif -%}
+
+  {%- if network_policy_egress.selectors is defined -%}
+  {% for selector in network_policy_egress.selectors -%}
+    - to:
+      - namespaceSelector:
+          matchLabels:
+            {{ selector.namespaceSelector }}
+        podSelector:
+          matchLabels:
+            {{ selector.podSelector }}
+  {% endfor -%}
+  {% endif -%}
+
+  {%- else -%}
     - {} # allow all egress traffic
   {% endif -%}
